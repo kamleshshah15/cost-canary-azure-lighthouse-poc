@@ -1,0 +1,31 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "resources": [
+    {
+      "type": "Microsoft.ManagedServices/registrationDefinitions",
+      "apiVersion": "2020-02-01-preview",
+      "name": "costCanaryDelegation",
+      "location": "global",
+      "properties": {
+        "registrationDefinitionName": "Cost Canary Integration",
+        "description": "Grants Cost Canary access to your cost data via Azure Lighthouse.",
+        "authorizations": [
+          {
+            "principalId": "ed438be4-2aec-4032-853a-3173bd349b3d", 
+            "roleDefinitionId": "/providers/Microsoft.Authorization/roleDefinitions/6d8ee4ec-f05a-4a1d-9ae4-e9d9f2c66d02"
+          }
+        ],
+        "managedByTenantId": "011302ce-169b-4efc-a138-731c21b04333"
+      }
+    },
+    {
+      "type": "Microsoft.ManagedServices/registrationAssignments",
+      "apiVersion": "2020-02-01-preview",
+      "name": "costCanaryAssignment",
+      "properties": {
+        "registrationDefinitionId": "[subscription().id]/providers/Microsoft.ManagedServices/registrationDefinitions/costCanaryDelegation"
+      }
+    }
+  ]
+}

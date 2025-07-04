@@ -14,6 +14,10 @@
           {
             "principalId": "ed438be4-2aec-4032-853a-3173bd349b3d", 
             "roleDefinitionId": "/providers/Microsoft.Authorization/roleDefinitions/6d8ee4ec-f05a-4a1d-9ae4-e9d9f2c66d02"
+          },
+          {
+            "principalId": "ed438be4-2aec-4032-853a-3173bd349b3d", 
+            "roleDefinitionId": "/providers/Microsoft.Authorization/roleDefinitions/acdd72a7-3385-48ef-bd42-f606fba81ae7"
           }
         ],
         "managedByTenantId": "011302ce-169b-4efc-a138-731c21b04333"

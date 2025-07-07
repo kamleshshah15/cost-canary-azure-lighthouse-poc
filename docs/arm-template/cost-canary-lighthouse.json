@@ -27,12 +27,12 @@
       "type": "array",
       "defaultValue": [
         {
-          "principalId": "ed438be4-2aec-4032-853a-3173bd349b3d",
+          "principalId": "7b5325bf-bc01-4077-9526-6dbd8bdd4dc3",
           "principalIdDisplayName": "Cost Canary Service Principal",
           "roleDefinitionId": "72fafb9e-0641-4937-9268-a91bfd8191a3"
         },
         {
-          "principalId": "ed438be4-2aec-4032-853a-3173bd349b3d",
+          "principalId": "7b5325bf-bc01-4077-9526-6dbd8bdd4dc3",
           "principalIdDisplayName": "Cost Canary Reader Access",
           "roleDefinitionId": "acdd72a7-3385-48ef-bd42-f606fba81ae7"
         }

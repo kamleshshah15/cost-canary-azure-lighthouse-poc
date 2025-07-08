@@ -1,66 +1,59 @@
 {
-  "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
+  "$schema": "https://schema.management.azure.com/schemas/2019-08-01/subscriptionDeploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
     "mspOfferName": {
       "type": "string",
-      "defaultValue": "Cost Canary Integration",
       "metadata": {
         "description": "Specify a unique name for your offer"
-      }
+      },
+      "defaultValue": "Cost Canary Integration"
     },
     "mspOfferDescription": {
       "type": "string",
-      "defaultValue": "Grants Cost Canary access to your cost data via Azure Lighthouse.",
       "metadata": {
         "description": "Name of the Managed Service Provider offering"
-      }
-    },
-    "managedByTenantId": {
-      "type": "string",
-      "defaultValue": "011302ce-169b-4efc-a138-731c21b04333",
-      "metadata": {
-        "description": "Specify the tenant id of the Managed Service Provider"
-      }
-    },
-    "authorizations": {
-      "type": "array",
-      "defaultValue": [
-        {
-          "principalId": "7b5325bf-bc01-4077-9526-6dbd8bdd4dc3",
-          "principalIdDisplayName": "Cost Canary Service Principal",
-          "roleDefinitionId": "72fafb9e-0641-4937-9268-a91bfd8191a3"
-        },
-        {
-          "principalId": "7b5325bf-bc01-4077-9526-6dbd8bdd4dc3",
-          "principalIdDisplayName": "Cost Canary Reader Access",
-          "roleDefinitionId": "acdd72a7-3385-48ef-bd42-f606fba81ae7"
-        }
-      ],
-      "metadata": {
-        "description": "Specify an array of objects, containing tuples of Azure Active Directory principalId, a Azure roleDefinitionId, and an optional principalIdDisplayName. The roleDefinition specified is granted to the principalId in the provider's Active Directory and the principalIdDisplayName is visible to customers."
-      }
+      },
+      "defaultValue": "Grants Cost Canary access to your cost data via Azure Lighthouse."
     }
   },
   "variables": {
     "mspRegistrationName": "[guid(parameters('mspOfferName'))]",
-    "mspAssignmentName": "[guid(parameters('mspOfferName'))]"
+    "mspAssignmentName": "[guid(parameters('mspOfferName'))]",
+    "managedByTenantId": "011302ce-169b-4efc-a138-731c21b04333",
+    "authorizations": [
+      {
+        "principalId": "7b5325bf-bc01-4077-9526-6dbd8bdd4dc3",
+        "roleDefinitionId": "72fafb9e-0641-4937-9268-a91bfd8191a3",
+        "principalIdDisplayName": "cost-canary-test"
+      },
+      {
+        "principalId": "7b5325bf-bc01-4077-9526-6dbd8bdd4dc3",
+        "roleDefinitionId": "acdd72a7-3385-48ef-bd42-f606fba81ae7",
+        "principalIdDisplayName": "cost-canary-test"
+      },
+      {
+        "principalId": "7b5325bf-bc01-4077-9526-6dbd8bdd4dc3",
+        "roleDefinitionId": "91c1777a-f3dc-4fae-b103-61d183457e46",
+        "principalIdDisplayName": "cost-canary-test"
+      }
+    ]
   },
   "resources": [
     {
       "type": "Microsoft.ManagedServices/registrationDefinitions",
-      "apiVersion": "2019-09-01",
+      "apiVersion": "2020-02-01-preview",
       "name": "[variables('mspRegistrationName')]",
       "properties": {
         "registrationDefinitionName": "[parameters('mspOfferName')]",
         "description": "[parameters('mspOfferDescription')]",
-        "managedByTenantId": "[parameters('managedByTenantId')]",
-        "authorizations": "[parameters('authorizations')]"
+        "managedByTenantId": "[variables('managedByTenantId')]",
+        "authorizations": "[variables('authorizations')]"
       }
     },
     {
       "type": "Microsoft.ManagedServices/registrationAssignments",
-      "apiVersion": "2019-09-01",
+      "apiVersion": "2020-02-01-preview",
       "name": "[variables('mspAssignmentName')]",
       "dependsOn": [
         "[resourceId('Microsoft.ManagedServices/registrationDefinitions/', variables('mspRegistrationName'))]"
@@ -77,7 +70,7 @@
     },
     "authorizations": {
       "type": "array",
-      "value": "[parameters('authorizations')]"
+      "value": "[variables('authorizations')]"
     }
   }
 }
